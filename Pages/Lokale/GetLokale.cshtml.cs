@@ -1,3 +1,5 @@
+using LokaleBookingRazor.Services;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -5,15 +7,18 @@ namespace LokaleBookingRazor.Pages.Lokale
 {
     public class GetLokaleModel : PageModel
     {
-        public List<Models.Lokale> Lokaler { get; private set; } = new List<Models.Lokale>
+        private LokaleService _lokaleService;
+
+        public GetLokaleModel(LokaleService lokaleService)
         {
-            new Models.Lokale(1, "Møde Rum"),
-            new Models.Lokale(2, "Klasse lokale"),
-            new Models.Lokale(3, "Auditorium")
-        };
+            _lokaleService = lokaleService;
+        }
+
+        public List<Models.Lokale> Lokaler { get; set; } = new();
 
         public void OnGet()
         {
+            Lokaler = _lokaleService.GetLokaler();
         }
     }
 }
