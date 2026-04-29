@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject Services.BrugerService _brugerService
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,6 +30,20 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Lokale/GetLokale">Lokaler</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Login/LoginPage">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link text-dark"> 
+                                @if (_brugerService.LoggedInBruger != null)
+                                {
+                                    <span class="nav-link text-dark">
+                                        Logged in som: @_brugerService.LoggedInBruger.Brugernavn
+                                    </span>
+                                }
+                            </span>
+                        </li>
+                        
                     </ul>
                 </div>
             </div>
