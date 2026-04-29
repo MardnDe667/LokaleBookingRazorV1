@@ -12,6 +12,16 @@ builder.Services.AddSingleton<LokaleService>();
 builder.Services.AddTransient<DBLokaleService>();
 builder.Services.AddDbContext<LokaleDbContext>();
 
+// Singleton, transient og dbContext for booking class
+builder.Services.AddSingleton<BookingService>();
+builder.Services.AddTransient<DBBookingService>();
+builder.Services.AddDbContext<BookingDbContext>();
+
+// Singleton, transient og dbContext for bruger class
+builder.Services.AddSingleton<BrugerService>();
+builder.Services.AddTransient<DBBrugerService>();
+builder.Services.AddDbContext<BrugerDbContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

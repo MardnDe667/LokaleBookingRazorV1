@@ -14,13 +14,13 @@ namespace LokaleBookingRazor.Services
             }
         }
 
-        public async Task SaveLokaler(List<Lokale> cards)
+        public async Task SaveLokaler(List<Lokale> lokaler)
         {
             using (var context = new LokaleDbContext())
             {
-                foreach (Lokale card in cards)
+                foreach (Lokale lokale in lokaler)
                 {
-                    context.Lokaler.Add(card);
+                    context.Lokaler.Add(lokale);
                     context.SaveChanges();
                 }
 
