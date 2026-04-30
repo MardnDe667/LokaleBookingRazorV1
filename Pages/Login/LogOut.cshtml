@@ -1,0 +1,12 @@
+﻿@page
+@model LokaleBookingRazor.Pages.Login.LogOutModel
+@{
+}
+<h1>Log Out Confirmation></h1>
+<div class="alert alert-danger">
+	<h5>Are you sure you want to logout? - @Model.User.Brugernavn</h5>
+	<form method="post">
+		<button type="submit" class="btn btn-danger">Yes</button>
+		<a class="btn btn-primary" asp-page="/Lokale/GetAllLokaler">No</a>
+	</form>
+</div>
