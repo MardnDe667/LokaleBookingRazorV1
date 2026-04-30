@@ -7,18 +7,24 @@ namespace LokaleBookingRazor.Pages.Lokale
 {
     public class GetLokaleModel : PageModel
     {
+        private BrugerService _brugerService;
         private LokaleService _lokaleService;
 
-        public GetLokaleModel(LokaleService lokaleService)
+        public GetLokaleModel(LokaleService lokaleService, BrugerService brugerService)
         {
             _lokaleService = lokaleService;
+            _brugerService = brugerService;
         }
 
         public List<Models.Lokale> Lokaler { get; set; } = new();
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (_brugerService.LoggedInBruger == null)
+                return RedirectToPage("/Login/LogIn");
+
             Lokaler = _lokaleService.GetLokaler();
+            return Page();
         }
     }
 }

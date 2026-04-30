@@ -9,10 +9,8 @@ using System.Security.Claims;
 
 namespace LokaleBookingRazor.Pages.Login
 {
-    public class LoginPageModel : PageModel
+    public class LogInModel : PageModel
     {
-
-       // public static Bruger LoggedInBruger { get; set; } = null;
         private BrugerService _brugerService;
 
         [BindProperty]
@@ -22,17 +20,19 @@ namespace LokaleBookingRazor.Pages.Login
         public string Password { get; set; }
         public string Message { get; set; }
 
-        public LoginPageModel (BrugerService brugerService)
+        public LogInModel(BrugerService brugerService)
         {
             _brugerService = brugerService; 
         }
+
         public void OnGet()
         {
         }
+
         public async Task<IActionResult> OnPost()
         {
 
-            List<Bruger> brugere = _brugerService.TestBrugere;
+            List<Bruger> brugere = _brugerService.GetBrugere();
             foreach (Bruger bruger in brugere)
             {
                 if (Brugernavn == bruger.Brugernavn && Password == bruger.Password)
