@@ -1,3 +1,4 @@
+using LokaleBookingRazor.Pages.Login;
 using LokaleBookingRazor.Services;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace LokaleBookingRazor.Pages.Lokale
 
         public IActionResult OnGet()
         {
-            if (_brugerService.LoggedInBruger == null)
+            if (LogInModel.LoggedInBruger == null)
                 return RedirectToPage("/Login/LogIn");
 
             Lokaler = _lokaleService.GetLokaler();

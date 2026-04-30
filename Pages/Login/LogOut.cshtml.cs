@@ -10,7 +10,6 @@ namespace LokaleBookingRazor.Pages.Login
 {
     public class LogOutModel : PageModel
     {
-        public Bruger User { get; set; }
         private BrugerService _brugerService;
 
         public LogOutModel(BrugerService brugerService)
@@ -20,16 +19,17 @@ namespace LokaleBookingRazor.Pages.Login
 
         public IActionResult OnGet()
         {
-            if (_brugerService.LoggedInBruger == null)
+            if (LogInModel.LoggedInBruger == null)
                 return RedirectToPage("/Error");
 
-            User = _brugerService.LoggedInBruger;
             return Page();
         }
         public async Task<IActionResult> OnPost()
         {
-            await _brugerService.LogOut();
-            return RedirectToPage("/Lokale/GetLokale");
+            LogInModel.LoggedInBruger = null;
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToPage("/index");
         }
     }
 }

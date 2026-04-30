@@ -13,6 +13,8 @@ namespace LokaleBookingRazor.Pages.Login
     {
         private BrugerService _brugerService;
 
+        public static Bruger LoggedInBruger { get; set; } = null;
+
         [BindProperty]
         public string Brugernavn { get; set; }
 
@@ -35,20 +37,24 @@ namespace LokaleBookingRazor.Pages.Login
             List<Bruger> brugere = _brugerService.GetBrugere();
             foreach (Bruger bruger in brugere)
             {
+
                 if (Brugernavn == bruger.Brugernavn && Password == bruger.Password)
                 {
-                    _brugerService.LoggedInBruger = bruger;
+
+                    LoggedInBruger = bruger;
 
                     var claims = new List<Claim> { new Claim(ClaimTypes.Name, Brugernavn) };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
                     return RedirectToPage("/Lokale/GetLokale");
+
                 }
+
             }
+
             Message = "Invalid attempt";
             return Page();
-
         }
     }
 }

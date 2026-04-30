@@ -8,8 +8,6 @@ namespace LokaleBookingRazor.Services
         private DBBrugerService _dbservice { get; set; }
         private List<Bruger> _brugere;
 
-        public Bruger LoggedInBruger { get; set; } // Den bruger som er logged ind..
-
         public BrugerService(DBBrugerService dbservice)
         {
             
@@ -20,11 +18,6 @@ namespace LokaleBookingRazor.Services
         public List<Bruger> GetBrugere()
         {
             return _brugere;
-        }
-
-        public async Task LogOut()
-        {
-            LoggedInBruger = null;
         }
     }
 }
