@@ -35,10 +35,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     cookieOptions.LoginPath = "/Login/LogIn";
 
 });
-builder.Services.AddMvc().AddRazorPagesOptions(options => {
-    options.Conventions.AuthorizeFolder("/Lokale");
-
-}).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+builder.Services.AddMvc().AddRazorPagesOptions(options =>
+{
+    options.Conventions.AuthorizeFolder("/Lokale");});
 
 var app = builder.Build();
 

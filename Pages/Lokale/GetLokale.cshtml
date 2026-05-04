@@ -4,6 +4,39 @@
 }
 <h1>Items</h1>
 
+<div class="card" style="width:500px">
+	<img class="card-img-top" src="~/Logo.png" alt="Card image">
+
+	<div class="card-img-overlay d-flex flex-column">
+		<h4 class="card-title">Lokale 1</h4>
+		<p class="card-text">Det her et klasse lokale på 1 sal. Med plads til 20 personer.</p>
+
+		<div class="card" style="width:250px">
+			@if (Model.Lokaler != null)
+			{
+				foreach (var item in Model.Lokaler)
+				{
+					<table class="table table-bordered table-hover table-striped">
+					<tr>
+						<td>@item.Id</td>
+						<td>@item.Navn</td>
+						<td>@item.Beskrivelse</td>
+						<td>@item.SmartBoard</td>
+						<td>@item.Størrelse</td>
+						<td>@item.Type</td>
+						<td>@item.Booking</td>
+					</tr>
+					</table>
+				}
+			}
+		</div>
+
+		<a href="#" class="btn btn-primary mt-auto align-self-end">
+			Opret Booking
+		</a>
+	</div>
+</div>
+
 <table class="table table-bordered table-hover table-striped">
 	<thead>
 		<tr>
