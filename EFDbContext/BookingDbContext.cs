@@ -11,5 +11,7 @@ namespace LokaleBookingRazor.EFDbContext
         }
 
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Bruger> Brugere { get; set; }
+        public DbSet<Lokale> Lokaler { get; set; }
     }
 }

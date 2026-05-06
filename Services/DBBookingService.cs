@@ -14,6 +14,15 @@ namespace LokaleBookingRazor.Services
             }
         }
 
+        public async Task AddBooking(Booking booking)
+        {
+            using (var context = new BookingDbContext())
+            {
+                context.Bookings.Add(booking);
+                context.SaveChanges();
+            }
+        }
+
         public async Task SaveBookings(List<Booking> bookings)
         {
             using (var context = new BookingDbContext())

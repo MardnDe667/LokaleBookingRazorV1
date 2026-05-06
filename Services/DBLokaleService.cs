@@ -8,7 +8,7 @@ namespace LokaleBookingRazor.Services
     {
         public async Task<List<Lokale>> GetLokaler()
         {
-            using (var context = new LokaleDbContext())
+            using (var context = new BookingDbContext())
             {
                 return await context.Lokaler.ToListAsync();
             }
@@ -16,7 +16,7 @@ namespace LokaleBookingRazor.Services
 
         public async Task SaveLokaler(List<Lokale> lokaler)
         {
-            using (var context = new LokaleDbContext())
+            using (var context = new BookingDbContext())
             {
                 foreach (Lokale lokale in lokaler)
                 {

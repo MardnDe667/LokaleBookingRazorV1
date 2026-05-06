@@ -12,8 +12,8 @@ namespace LokaleBookingRazor.Services
         {
             
             _dbservice = dbservice;
-            _brugere = MockData.MockBrugere.GetBrugere();
-            //_brugere = _dbservice.GetBrugere().Result;
+
+            _brugere = _dbservice.GetBrugere().Result;
         }
         public List<Bruger> GetBrugere()
         {

@@ -36,29 +36,23 @@
 			foreach (var item in Model.Lokaler)
 			{
 				<tr>
+					<td>@item.Id</td>
+					<td>@item.Navn</td>
+					<td>@item.Beskrivelse</td>
+					<td>@item.SmartBoard</td>
+					<td>@item.Størrelse</td>
+					<td>@item.Type</td>
+
 					<td>
-						@item.Id
-					</td>
-					<td>
-						@item.Navn
-					</td>
-					<td>
-						@item.Beskrivelse
-					</td>
-					<td>
-						@item.SmartBoard
-					</td>
-					<td>
-						@item.Størrelse
-					</td>
-					<td>
-						@item.Type
-					</td>
-					<td>
-						@item.Booking
+						<div class="action-buttons">
+							<a class="btn btn-primary btn-sm"
+							   asp-page="/Booking/Create"
+							   asp-route-id="@item.Id">
+								<i class="fa-solid fa-pen">Create Booking</i>
+							</a>
+						</div>
 					</td>
 				</tr>
 			}
 		}
 	</tbody>
-</table>
