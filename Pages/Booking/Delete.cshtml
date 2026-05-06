@@ -1,0 +1,15 @@
+﻿@page
+@model LokaleBookingRazor.Pages.Booking.DeleteModel
+@{
+}
+
+<h1>Delete Confirmation</h1>
+<div class="alert alert-danger">
+	<h5>Er du sikker på, at du vil slette denne booking? - @Model.</h5>
+	<form method="post">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+		<button type="submit" class="btn btn-danger">Ja</button>
+		<a class="btn btn-primary" asp-page="/Lokale/GetLokale">Nej</a>
+	</form>
+</div>

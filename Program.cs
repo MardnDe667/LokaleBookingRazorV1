@@ -9,20 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// Singleton, transient og dbContext for lokale class
+// Singleton, transient for lokale class
 builder.Services.AddSingleton<LokaleService>();
 builder.Services.AddTransient<DBLokaleService>();
-builder.Services.AddDbContext<LokaleDbContext>();
 
 // Singleton, transient og dbContext for booking class
 builder.Services.AddSingleton<BookingService>();
 builder.Services.AddTransient<DBBookingService>();
 builder.Services.AddDbContext<BookingDbContext>();
 
-// Singleton, transient og dbContext for bruger class
+// Singleton, transient for bruger class
 builder.Services.AddSingleton<BrugerService>();
 builder.Services.AddTransient<DBBrugerService>();
-builder.Services.AddDbContext<BrugerDbContext>();
 
 // cookie login 
 builder.Services.Configure<CookiePolicyOptions>(options => {
