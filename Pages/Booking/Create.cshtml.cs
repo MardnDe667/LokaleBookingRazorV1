@@ -59,9 +59,9 @@ namespace LokaleBookingRazor.Pages.Booking
             switch (lokale.Type) // Tjek Lokale type og find restrictions
             {
                 case 1:
-                    if (varighed.TotalHours > 6)
+                    if (varighed.TotalHours > 6 || varighed.TotalHours < 0.5)
                     {
-                        ModelState.AddModelError("Booking.SlutTid", "Maks 6 timer");
+                        ModelState.AddModelError("Booking.SlutTid", "Maks 6 timer og mindst en halv time");
                     }
 
                     else if (overlap.Count > 1)
@@ -72,9 +72,9 @@ namespace LokaleBookingRazor.Pages.Booking
                     break;
 
                 case 2:
-                    if (varighed.TotalHours > 3)
+                    if (varighed.TotalHours > 3 || varighed.TotalHours < 0.5)
                     {
-                        ModelState.AddModelError("Booking.SlutTid", "Maks 3 timer");
+                        ModelState.AddModelError("Booking.SlutTid", "Maks 3 timer og mindst en halv time");
                     }
 
                     else if (overlap.Count > 0)
@@ -85,9 +85,9 @@ namespace LokaleBookingRazor.Pages.Booking
                     break;
 
                 case 3:
-                    if (varighed.TotalHours > 1)
+                    if (varighed.TotalHours > 1 || varighed.TotalHours < 0.5)
                     {
-                        ModelState.AddModelError("Booking.SlutTid", "Maks 1 time");
+                        ModelState.AddModelError("Booking.SlutTid", "Maks 1 time og mindst en halv time");
                     }
 
                     else if (tidIndtilBooking.TotalDays < 2)
