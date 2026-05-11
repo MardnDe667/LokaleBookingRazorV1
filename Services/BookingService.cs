@@ -14,6 +14,14 @@ namespace LokaleBookingRazor.Services
             _bookings = _dbservice.GetBookings().Result;
         }
 
+
+        public async Task AddBooking(Booking booking)
+        {
+            await _dbservice.AddBooking(booking);
+
+            _bookings = _dbservice.GetBookings().Result;
+        }
+
         public List<Booking> GetBookings()
         {
             return _bookings;

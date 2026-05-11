@@ -16,9 +16,9 @@ namespace LokaleBookingRazor.Models
         public bool SmartBoard { get; set; }
         public float Størrelse { get; set; }
         public int Type { get; set; }
-        public Booking? Booking { get; set; }
 
-        public Lokale (int id, string navn, string beskrivelse, bool smartBoard, float størrelse, int type, Booking booking)
+
+        public Lokale (int id, string navn, string beskrivelse, bool smartBoard, float størrelse, int type)
         {
             Id = id;
             Navn = navn;
@@ -26,7 +26,6 @@ namespace LokaleBookingRazor.Models
             SmartBoard = smartBoard;
             Størrelse = størrelse;
             Type = type;
-            Booking = booking;
         }
         public Lokale()
         {
@@ -36,7 +35,6 @@ namespace LokaleBookingRazor.Models
             SmartBoard = false;
             Størrelse = 0;
             Type = 0;
-            Booking = null;
         }
     }
 
