@@ -3,6 +3,7 @@ using LokaleBookingRazor.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,8 @@ builder.Services.AddTransient<DBLokaleService>();
 builder.Services.AddSingleton<BookingService>();
 builder.Services.AddTransient<DBBookingService>();
 builder.Services.AddDbContext<BookingDbContext>();
-
+//builder.Services.AddDbContext<BookingDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBSECRET")));
+//builder.Services.AddDbContext<BookingDbContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Singleton, transient for bruger class
 builder.Services.AddSingleton<BrugerService>();
 builder.Services.AddTransient<DBBrugerService>();

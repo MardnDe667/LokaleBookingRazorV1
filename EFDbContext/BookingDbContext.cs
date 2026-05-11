@@ -7,7 +7,11 @@ namespace LokaleBookingRazor.EFDbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BookingDB; Integrated Security=True; Connect Timeout=30; Encrypt=False");
+            var connectionString =
+                Environment.GetEnvironmentVariable(
+                    "ConnectionStrings__DefaultConnection");
+
+            options.UseSqlServer(connectionString);
         }
 
         public DbSet<Booking> Bookings { get; set; }
