@@ -1,4 +1,5 @@
-﻿using LokaleBookingRazor.Models;
+﻿using LokaleBookingRazor.MockData;
+using LokaleBookingRazor.Models;
 
 namespace LokaleBookingRazor.Services
 {
@@ -10,7 +11,7 @@ namespace LokaleBookingRazor.Services
         public LokaleService(DBLokaleService dbservice)
         {
             _dbservice = dbservice;
-
+            
             _lokaler = _dbservice.GetLokaler().Result;
         }
 

@@ -1,0 +1,37 @@
+﻿@page
+@using LokaleBookingRazor.Models
+@model LokaleBookingRazor.Pages.Booking.GetBookingModel
+
+@{
+}
+<h1>Bookinger</h1>
+
+
+@if (Model.Bookings != null)
+{
+	foreach (var booking in Model.Bookings)
+	{
+		var bruger = Model.Brugere.FirstOrDefault(b => b.Id == booking.BrugerId);
+		var lokale = Model.Lokaler.FirstOrDefault(l => l.Id == booking.LokaleId);
+
+		if (lokale != null && lokale.Id == booking.LokaleId)
+		{
+				<div class="d-flex flex-wrap gap-2 mb-3">
+					<div class="card room-card">
+						<div class="card-body d-flex flex-column">
+							<h4 class="card-title">@booking.Navn</h4>
+
+							<p class="card-text">@booking.Beskrivelse</p>
+
+							<ul class="list-unstyled">
+								<li><strong>Start Tid:</strong> @booking.StartTid</li>
+								<li><strong>Slut Tid:</strong> @booking.SlutTid</li>
+								<li><strong>Booket af:</strong> @bruger?.Brugernavn</li>
+								<li><strong>Lokale:</strong> @lokale?.Navn</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+		}
+	}
+}
