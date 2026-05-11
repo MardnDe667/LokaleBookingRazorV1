@@ -11,19 +11,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // Singleton, transient for lokale class
-builder.Services.AddSingleton<LokaleService>();
+builder.Services.AddScoped<LokaleService>();
 builder.Services.AddTransient<DBLokaleService>();
 
 // Singleton, transient og dbContext for booking class
-builder.Services.AddSingleton<BookingService>();
+builder.Services.AddScoped<BookingService>();
 builder.Services.AddTransient<DBBookingService>();
-builder.Services.AddDbContext<BookingDbContext>();
+//builder.Services.AddDbContext<BookingDbContext>();
 //builder.Services.AddDbContext<BookingDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBSECRET")));
 //builder.Services.AddDbContext<BookingDbContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Singleton, transient for bruger class
-builder.Services.AddSingleton<BrugerService>();
+builder.Services.AddScoped<BrugerService>();
 builder.Services.AddTransient<DBBrugerService>();
-
+builder.Services.AddDbContext<BookingDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // cookie login 
 builder.Services.Configure<CookiePolicyOptions>(options => {
     // This lambda determines whether user consent for non-essential cookies is needed for a given request. options.CheckConsentNeeded = context => true; 
