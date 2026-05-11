@@ -26,9 +26,6 @@ namespace LokaleBookingRazor.Pages.Lokale
 
         public IActionResult OnGet()
         {
-            if (LogInModel.LoggedInBruger == null)
-                return RedirectToPage("/Login/LogIn");
-
             Lokaler = _lokaleService.GetLokaler();
             Bookings = _bookingService.GetBookings();
             Brugere = _brugerService.GetBrugere();
