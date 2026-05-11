@@ -1,4 +1,5 @@
 ﻿using LokaleBookingRazor.Models;
+using LokaleBookingRazor.Pages.Login;
 
 namespace LokaleBookingRazor.Services
 {
@@ -43,6 +44,21 @@ namespace LokaleBookingRazor.Services
             }
 
             return null;
+        }
+
+        public bool CanDelete(Models.Booking booking)
+        {
+            if (LogInModel.LoggedInBruger == null)
+                return false;
+
+            var tidIndtilBooking = booking.StartTid - DateTime.Now;
+
+            if (LogInModel.LoggedInBruger.Rolle == "Underviser" && tidIndtilBooking.TotalDays >= 3)
+            {
+                return true;
+            }
+
+            return booking.BrugerId == LogInModel.LoggedInBruger.Id;
         }
     }
 }

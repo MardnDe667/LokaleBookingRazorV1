@@ -31,5 +31,9 @@ namespace LokaleBookingRazor.Pages.Lokale
             Brugere = _brugerService.GetBrugere();
             return Page();
         }
+        public bool CanDelete(Models.Booking booking)
+        {
+            return _bookingService.CanDelete(booking);
+        }
     }
 }

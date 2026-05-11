@@ -24,6 +24,11 @@ namespace LokaleBookingRazor.Pages.Booking
             if (Booking == null)
                 return RedirectToPage("/Error"); //NotFound er ikke defineret endnu
 
+            if (!_bookingService.CanDelete(Booking))
+            {
+                return RedirectToPage("/Lokale/GetLokale");
+            }
+
             return Page();
         }
 
