@@ -35,7 +35,7 @@ namespace LokaleBookingRazor.Services
             return _bookings;
         }
 
-        public Booking GetBooking(int id)
+        public Booking? GetBooking(int id)
         {
             foreach (Booking booking in _bookings)
             {

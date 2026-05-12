@@ -3,6 +3,7 @@ using LokaleBookingRazor.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,16 +11,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // Singleton, transient for lokale class
-builder.Services.AddSingleton<LokaleService>();
+builder.Services.AddScoped<LokaleService>();
 builder.Services.AddTransient<DBLokaleService>();
 
 // Singleton, transient og dbContext for booking class
-builder.Services.AddSingleton<BookingService>();
+builder.Services.AddScoped<BookingService>();
 builder.Services.AddTransient<DBBookingService>();
 builder.Services.AddDbContext<BookingDbContext>();
 
 // Singleton, transient for bruger class
-builder.Services.AddSingleton<BrugerService>();
+builder.Services.AddScoped<BrugerService>();
 builder.Services.AddTransient<DBBrugerService>();
 
 // cookie login 
