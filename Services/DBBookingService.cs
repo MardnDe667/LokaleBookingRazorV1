@@ -24,6 +24,15 @@ namespace LokaleBookingRazor.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteBooking(Booking booking)
+        {
+            using (var context = new BookingDbContext())
+            {
+                context.Bookings.Remove(booking);
+                context.SaveChanges();
+            }
+        }
+
         public async Task SaveBookings(List<Booking> bookings)
         {
             _context.Bookings.AddRange(bookings);

@@ -20,7 +20,7 @@ namespace LokaleBookingRazor.Services
             return _brugere;
         }
 
-        public Bruger GetBruger(int id)
+        public Bruger? GetBruger(int id)
         {
             foreach (Bruger bruger in _brugere)
             {

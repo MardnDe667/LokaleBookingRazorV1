@@ -1,19 +1,20 @@
-using LokaleBookingRazor.MockData;
+using LokaleBookingRazor.Models;
 using LokaleBookingRazor.Pages.Login;
 using LokaleBookingRazor.Services;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 
-namespace LokaleBookingRazor.Pages.Lokale
+
+namespace LokaleBookingRazor.Pages.Booking
 {
-    public class GetLokaleModel : PageModel
+    public class GetBookingModel : PageModel
     {
         private BookingService _bookingService;
         private LokaleService _lokaleService;
         private BrugerService _brugerService;
 
-        public GetLokaleModel(LokaleService lokaleService, BookingService bookingService, BrugerService brugerService)
+        public GetBookingModel(LokaleService lokaleService, BookingService bookingService, BrugerService brugerService)
         {
             _lokaleService = lokaleService;
             _bookingService = bookingService;
@@ -26,14 +27,12 @@ namespace LokaleBookingRazor.Pages.Lokale
 
         public IActionResult OnGet()
         {
+            if (LogInModel.LoggedInBruger == null)
+                return RedirectToPage("/Login/LogIn");
             Lokaler = _lokaleService.GetLokaler();
             Bookings = _bookingService.GetBookings();
             Brugere = _brugerService.GetBrugere();
             return Page();
-        }
-        public bool CanDelete(Models.Booking booking)
-        {
-            return _bookingService.CanDelete(booking);
         }
     }
 }

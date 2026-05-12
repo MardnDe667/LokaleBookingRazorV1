@@ -1,4 +1,5 @@
 ﻿using LokaleBookingRazor.Models;
+using LokaleBookingRazor.Pages.Login;
 
 namespace LokaleBookingRazor.Services
 {
@@ -22,9 +23,42 @@ namespace LokaleBookingRazor.Services
             _bookings = _dbservice.GetBookings().Result;
         }
 
+        public async Task DeleteBooking(Booking booking)
+        {
+            await _dbservice.DeleteBooking(booking);
+
+            _bookings = _dbservice.GetBookings().Result;
+        }
+
         public List<Booking> GetBookings()
         {
             return _bookings;
+        }
+
+        public Booking? GetBooking(int id)
+        {
+            foreach (Booking booking in _bookings)
+            {
+                if (booking.Id == id)
+                    return booking;
+            }
+
+            return null;
+        }
+
+        public bool CanDelete(Models.Booking booking)
+        {
+            if (LogInModel.LoggedInBruger == null)
+                return false;
+
+            var tidIndtilBooking = booking.StartTid - DateTime.Now;
+
+            if (LogInModel.LoggedInBruger.Rolle == "Underviser" && tidIndtilBooking.TotalDays >= 3)
+            {
+                return true;
+            }
+
+            return booking.BrugerId == LogInModel.LoggedInBruger.Id;
         }
     }
 }

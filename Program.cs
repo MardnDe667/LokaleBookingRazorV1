@@ -10,17 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// Singleton, transient for lokale class - ændret til scoped 
+// Singleton, transient for lokale class
 builder.Services.AddScoped<LokaleService>();
 builder.Services.AddTransient<DBLokaleService>();
 
-// Singleton, transient og dbContext for booking class - ændret til scoped 
+// Singleton, transient og dbContext for booking class
 builder.Services.AddScoped<BookingService>();
 builder.Services.AddTransient<DBBookingService>();
-//builder.Services.AddDbContext<BookingDbContext>();
-//builder.Services.AddDbContext<BookingDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBSECRET")));
-//builder.Services.AddDbContext<BookingDbContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-// Singleton, transient for bruger class - ændret til scoped 
+builder.Services.AddDbContext<BookingDbContext>();
+
+// Singleton, transient for bruger class
 builder.Services.AddScoped<BrugerService>();
 builder.Services.AddTransient<DBBrugerService>();
 

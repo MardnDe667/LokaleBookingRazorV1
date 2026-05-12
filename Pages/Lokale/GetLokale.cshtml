@@ -21,15 +21,26 @@
                         <ul class="list-unstyled">
 							<li><strong>Id:</strong> @lokale.Id</li>
 							<li><strong>SmartBoard:</strong> @lokale.SmartBoard</li>
-							<li><strong>Størrelse:</strong> @lokale.Størrelse</li>
-							<li><strong>Type:</strong> @lokale.Type</li>
+							<li><strong>Størrelse (Kvadratmeter):</strong> @lokale.Størrelse</li>
+							@switch(lokale.Type)
+							{
+								case 1:
+									<li><strong>Type:</strong> Klasse lokale</li>
+									break;
+								case 2:
+									<li><strong>Type:</strong> Møde lokale</li>
+									break;
+								case 3:
+									<li><strong>Type:</strong> Auditorium</li>
+									break;
+							}
                         </ul>
 
 						<div class="action-buttons mb-3">
 							<a class="btn btn-primary btn-sm"
 							   asp-page="/Booking/Create"
 							   asp-route-id="@lokale.Id">
-								<i class="fa-solid fa-pen">Create Booking</i>
+								<strong class="fa-solid fa-pen">Create Booking</strong>
 							</a>
 						</div>
 
@@ -54,6 +65,17 @@
 													<li><strong>Booket af:</strong> @bruger?.Brugernavn</li>
 												</ul>
 											</div>
+
+											@if (Model.CanDelete(booking))
+											{
+												<div class="action-buttons m-1">
+													<a class="btn btn-danger btn-sm"
+													   asp-page="/Booking/Delete"
+													   asp-route-id="@booking.Id">
+														<strong class="fa-solid fa-pen">Delete</strong>
+													</a>
+												</div>
+											}
 										</div>
 									</div>
 								}
