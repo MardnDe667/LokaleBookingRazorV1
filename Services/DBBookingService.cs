@@ -6,22 +6,21 @@ namespace LokaleBookingRazor.Services
 {
     public class DBBookingService
     {
-        private readonly BookingDbContext _context;
-
-        public DBBookingService(BookingDbContext context)
-        {
-            _context = context;
-        }
-
         public async Task<List<Booking>> GetBookings()
         {
-            return await _context.Bookings.ToListAsync();
+            using (var context = new BookingDbContext())
+            {
+                return await context.Bookings.ToListAsync();
+            }
         }
 
         public async Task AddBooking(Booking booking)
         {
-            _context.Bookings.Add(booking);
-            await _context.SaveChangesAsync();
+            using (var context = new BookingDbContext())
+            {
+                context.Bookings.Add(booking);
+                context.SaveChanges();
+            }
         }
 
         public async Task DeleteBooking(Booking booking)
@@ -35,8 +34,16 @@ namespace LokaleBookingRazor.Services
 
         public async Task SaveBookings(List<Booking> bookings)
         {
-            _context.Bookings.AddRange(bookings);
-            await _context.SaveChangesAsync();
+            using (var context = new BookingDbContext())
+            {
+                foreach (Booking booking in bookings)
+                {
+                    context.Bookings.Add(booking);
+                    context.SaveChanges();
+                }
+
+                context.SaveChanges();
+            }
         }
     }
 }
