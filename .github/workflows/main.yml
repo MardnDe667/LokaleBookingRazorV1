@@ -1,0 +1,28 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - Simply-database
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      ConnectionStrings__DefaultConnection: ${{ secrets.ConnectionStrings__DefaultConnection }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Build
+        run: dotnet build
+
+      - name: Run app
+        run: dotnet run

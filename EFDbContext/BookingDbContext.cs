@@ -5,7 +5,8 @@ namespace LokaleBookingRazor.EFDbContext
 {
     public class BookingDbContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        public BookingDbContext(DbContextOptions<BookingDbContext> options)
+            : base(options)
         {
             options.UseSqlServer(@"Data Source=mssql5.unoeuro.com;Initial Catalog=datacatalyst_dk_db_BookingDB;User ID=datacatalyst_dk;Password=np6radeAGb9BR5F3Hfcx;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
         }
