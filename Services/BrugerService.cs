@@ -32,3 +32,4 @@ namespace LokaleBookingRazor.Services
         }
     }
 }
+
