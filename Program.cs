@@ -10,19 +10,20 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// Singleton, transient for lokale class
+// Singleton, transient for lokale class - ændret til scoped 
 builder.Services.AddScoped<LokaleService>();
 builder.Services.AddTransient<DBLokaleService>();
 
-// Singleton, transient og dbContext for booking class
+// Singleton, transient og dbContext for booking class - ændret til scoped 
 builder.Services.AddScoped<BookingService>();
 builder.Services.AddTransient<DBBookingService>();
 //builder.Services.AddDbContext<BookingDbContext>();
 //builder.Services.AddDbContext<BookingDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBSECRET")));
 //builder.Services.AddDbContext<BookingDbContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-// Singleton, transient for bruger class
+// Singleton, transient for bruger class - ændret til scoped 
 builder.Services.AddScoped<BrugerService>();
 builder.Services.AddTransient<DBBrugerService>();
+
 builder.Services.AddDbContext<BookingDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // cookie login 
 builder.Services.Configure<CookiePolicyOptions>(options => {
@@ -60,4 +61,3 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
-
