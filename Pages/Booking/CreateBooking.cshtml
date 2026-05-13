@@ -1,0 +1,45 @@
+﻿@page
+@model LokaleBookingRazor.Pages.Booking.CreateBookingModel
+@{
+}
+
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Booking.LokaleId" />
+    <input type="hidden" asp-for="Booking.BrugerId" />
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Booking.Navn" class="control-label"></label>
+        <input asp-for="Booking.Navn" class="form-control" />
+        <span asp-validation-for="Booking.Navn" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Booking.Beskrivelse" class="control-label"></label>
+        <input asp-for="Booking.Beskrivelse" class="form-control" />
+        <span asp-validation-for="Booking.Beskrivelse" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Booking.StartTid" class="control-label"></label>
+        <input asp-for="Booking.StartTid"
+               asp-format="{0:yyyy-MM-ddTHH:mm}"
+               class="form-control"
+               type="datetime-local" />
+        <span asp-validation-for="Booking.StartTid" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Booking.SlutTid" class="control-label"></label>
+        <input asp-for="Booking.SlutTid"
+               asp-format="{0:yyyy-MM-ddTHH:mm}"
+               class="form-control"
+               type="datetime-local" />
+        <span asp-validation-for="Booking.SlutTid" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>

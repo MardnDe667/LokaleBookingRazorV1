@@ -15,3 +15,4 @@ namespace LokaleBookingRazor.EFDbContext
         public DbSet<Lokale> Lokaler { get; set; }
     }
 }
+

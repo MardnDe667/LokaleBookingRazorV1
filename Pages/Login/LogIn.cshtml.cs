@@ -34,7 +34,7 @@ namespace LokaleBookingRazor.Pages.Login
         public async Task<IActionResult> OnPost()
         {
 
-            List<Bruger> brugere = _brugerService.GetBrugere();
+            List<Bruger> brugere = await _brugerService.GetBrugere();
             foreach (Bruger bruger in brugere)
             {
 

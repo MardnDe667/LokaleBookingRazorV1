@@ -6,47 +6,38 @@ namespace LokaleBookingRazor.Services
     public class BookingService
     {
         private DBBookingService _dbservice { get; set; }
-        private List<Booking> _bookings;
 
         public BookingService(DBBookingService dbservice)
         {
             _dbservice = dbservice;
-
-            _bookings = _dbservice.GetBookings().Result;
         }
 
-
-        public async Task AddBooking(Booking booking)
+        public Task<List<Booking>> GetBookings()
         {
-            await _dbservice.AddBooking(booking);
-
-            _bookings = _dbservice.GetBookings().Result;
+            return _dbservice.GetBookings();
         }
 
-        public async Task DeleteBooking(Booking booking)
+        public Task<Booking?> GetBooking(int id)
         {
-            await _dbservice.DeleteBooking(booking);
-
-            _bookings = _dbservice.GetBookings().Result;
+            return _dbservice.GetBooking(id);
         }
 
-        public List<Booking> GetBookings()
+        public Task AddBooking(Booking booking)
         {
-            return _bookings;
+            return _dbservice.AddBooking(booking);
         }
 
-        public Booking? GetBooking(int id)
+        public Task UpdateBooking(Booking booking)
         {
-            foreach (Booking booking in _bookings)
-            {
-                if (booking.Id == id)
-                    return booking;
-            }
-
-            return null;
+            return _dbservice.UpdateBooking(booking);
         }
 
-        public bool CanDelete(Models.Booking booking)
+        public Task DeleteBooking(Booking booking)
+        {
+            return _dbservice.DeleteBooking(booking);
+        }
+
+        public bool CanEditOrDelete(Booking booking)
         {
             if (LogInModel.LoggedInBruger == null)
                 return false;
@@ -54,9 +45,10 @@ namespace LokaleBookingRazor.Services
             var tidIndtilBooking = booking.StartTid - DateTime.Now;
 
             if (LogInModel.LoggedInBruger.Rolle == "Underviser" && tidIndtilBooking.TotalDays >= 3)
-            {
                 return true;
-            }
+
+            if (tidIndtilBooking.TotalHours < 1)
+                return false;
 
             return booking.BrugerId == LogInModel.LoggedInBruger.Id;
         }

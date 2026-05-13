@@ -6,26 +6,27 @@ namespace LokaleBookingRazor.Services
 {
     public class DBLokaleService
     {
+        private readonly BookingDbContext _context;
+
+        public DBLokaleService(BookingDbContext context)
+        {
+            _context = context;
+        }
+
         public async Task<List<Lokale>> GetLokaler()
         {
-            using (var context = new BookingDbContext())
-            {
-                return await context.Lokaler.ToListAsync();
-            }
+            return await _context.Lokaler.ToListAsync();
+        }
+
+        public async Task<Lokale?> GetLokale(int id)
+        {
+            return await _context.Lokaler.FirstOrDefaultAsync(b => b.Id == id);
         }
 
         public async Task SaveLokaler(List<Lokale> lokaler)
         {
-            using (var context = new BookingDbContext())
-            {
-                foreach (Lokale lokale in lokaler)
-                {
-                    context.Lokaler.Add(lokale);
-                    context.SaveChanges();
-                }
-
-                context.SaveChanges();
-            }
+            await _context.Lokaler.AddRangeAsync(lokaler);
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿@page
-@model LokaleBookingRazor.Pages.Booking.CreateModel
+@model LokaleBookingRazor.Pages.Booking.EditBookingModel
 @{
 }
 
 <form method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Booking.Id" />
     <input type="hidden" asp-for="Booking.LokaleId" />
     <input type="hidden" asp-for="Booking.BrugerId" />
 
@@ -40,6 +41,6 @@
     </div>
 
     <div class="form-group mt-3">
-        <input type="submit" value="Create" class="btn btn-primary" />
+        <input type="submit" value="Save" class="btn btn-primary" />
     </div>
 </form>

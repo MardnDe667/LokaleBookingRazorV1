@@ -6,44 +6,45 @@ namespace LokaleBookingRazor.Services
 {
     public class DBBookingService
     {
+        private readonly BookingDbContext _context;
+
+        public DBBookingService(BookingDbContext context)
+        {
+            _context = context;
+        }
+
         public async Task<List<Booking>> GetBookings()
         {
-            using (var context = new BookingDbContext())
-            {
-                return await context.Bookings.ToListAsync();
-            }
+            return await _context.Bookings.ToListAsync();
+        }
+
+        public async Task<Booking?> GetBooking(int id)
+        {
+            return await _context.Bookings.FirstOrDefaultAsync(b => b.Id == id);
         }
 
         public async Task AddBooking(Booking booking)
         {
-            using (var context = new BookingDbContext())
-            {
-                context.Bookings.Add(booking);
-                context.SaveChanges();
-            }
+            await _context.Bookings.AddAsync(booking);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateBooking(Booking booking)
+        {
+            _context.Bookings.Update(booking);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteBooking(Booking booking)
         {
-            using (var context = new BookingDbContext())
-            {
-                context.Bookings.Remove(booking);
-                context.SaveChanges();
-            }
+            _context.Bookings.Remove(booking);
+            await _context.SaveChangesAsync();
         }
 
         public async Task SaveBookings(List<Booking> bookings)
         {
-            using (var context = new BookingDbContext())
-            {
-                foreach (Booking booking in bookings)
-                {
-                    context.Bookings.Add(booking);
-                    context.SaveChanges();
-                }
-
-                context.SaveChanges();
-            }
+            await _context.Bookings.AddRangeAsync(bookings);
+            await _context.SaveChangesAsync();
         }
     }
 }
