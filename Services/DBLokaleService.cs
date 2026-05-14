@@ -28,5 +28,13 @@ namespace LokaleBookingRazor.Services
             await _context.Lokaler.AddRangeAsync(lokaler);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Lokale>> SearchLokaleByName(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return await _context.Lokaler.ToListAsync();
+
+            return await _context.Lokaler.Where(l => l.Navn.Contains(input)).ToListAsync();
+        }
     }
 }

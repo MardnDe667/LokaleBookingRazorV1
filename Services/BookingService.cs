@@ -37,6 +37,11 @@ namespace LokaleBookingRazor.Services
             return _dbservice.DeleteBooking(booking);
         }
 
+        public Task<List<Booking>> FilterByTime(DateTime? startTid, DateTime? slutTid)
+        {
+            return _dbservice.FilterByTime(startTid, slutTid);
+        }
+
         public bool CanEditOrDelete(Booking booking)
         {
             if (LogInModel.LoggedInBruger == null)
@@ -47,7 +52,7 @@ namespace LokaleBookingRazor.Services
             if (LogInModel.LoggedInBruger.Rolle == "Underviser" && tidIndtilBooking.TotalDays >= 3)
                 return true;
 
-            if (tidIndtilBooking.TotalHours < 1)
+            if (DateTime.Now > booking.StartTid)
                 return false;
 
             return booking.BrugerId == LogInModel.LoggedInBruger.Id;

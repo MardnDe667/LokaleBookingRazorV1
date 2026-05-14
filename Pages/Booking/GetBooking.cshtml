@@ -6,6 +6,30 @@
 }
 <h1>Bookinger</h1>
 
+<div class="row mb-3">
+    <div class="col-12">
+        <form method="post" class="d-flex align-items-end gap-3 flex-wrap">
+            <div class="d-flex flex-column">
+                <label asp-for="StartTid" class="form-label mb-1"></label>
+                <input asp-for="StartTid"
+                       asp-format="{0:yyyy-MM-ddTHH:mm}"
+                       class="form-control form-control-sm"
+                       type="datetime-local" />
+            </div>
+            <div class="d-flex flex-column">
+                <label asp-for="SlutTid" class="form-label mb-1"></label>
+                <input asp-for="SlutTid"
+                       asp-format="{0:yyyy-MM-ddTHH:mm}"
+                       class="form-control form-control-sm"
+                       type="datetime-local" />
+            </div>
+            <button type="submit" asp-page-handler="FilterTime" class="btn btn-dark btn-sm">Filter</button>
+
+            <a class="btn btn-dark btn-sm" asp-page="/Booking/GetBooking">Reset</a>
+        </form>
+    </div>
+</div>
+
 @if (Model.Bookings != null)
 {
     <div class="row">

@@ -21,5 +21,10 @@ namespace LokaleBookingRazor.Services
         {
             return _dbservice.GetLokale(id);
         }
+
+        public Task<List<Lokale>> SearchLokaleByName(string input)
+        {
+            return _dbservice.SearchLokaleByName(input);
+        }
     }
 }

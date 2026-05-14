@@ -4,6 +4,15 @@
 }
 <h1>Lokaler</h1>
 
+<div class="row mb-3">
+	<div class="col-12">
+		<form method="post" class="d-flex align-items-end gap-3 flex-wrap">
+			<input asp-for="SearchString" placeholder="Enter search term" />
+			<button type="submit" asp-page-handler="Search" class="btn btn-dark btn-sm">Search</button>
+		</form>
+	</div>
+</div>
+
 <div class="row">
     @if (Model.Lokaler != null)
     {
@@ -32,6 +41,9 @@
 									break;
 								case 3:
 									<li><strong>Type:</strong> Auditorium</li>
+									break;
+								case 4:
+									<li><strong>Type:</strong> Gruppe lokale</li>
 									break;
 							}
                         </ul>

@@ -41,6 +41,14 @@ namespace LokaleBookingRazor.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<List<Booking>> FilterByTime(DateTime? startTid, DateTime? slutTid)
+        {
+            if (startTid == DateTime.MinValue || slutTid == DateTime.MinValue)
+                return await _context.Bookings.ToListAsync();
+
+            return await _context.Bookings.Where(b => b.StartTid < slutTid && b.SlutTid > startTid).ToListAsync();
+        }
+
         public async Task SaveBookings(List<Booking> bookings)
         {
             await _context.Bookings.AddRangeAsync(bookings);

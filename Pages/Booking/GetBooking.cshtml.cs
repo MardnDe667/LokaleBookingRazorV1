@@ -25,13 +25,26 @@ namespace LokaleBookingRazor.Pages.Booking
         public List<Models.Booking> Bookings { get; set; } = new();
         public List<Models.Bruger> Brugere { get; set; } = new();
 
+        [BindProperty]
+        public DateTime StartTid { get; set; }
+        [BindProperty]
+        public DateTime SlutTid { get; set; }
+
         public async Task<IActionResult> OnGetAsync()
         {
-            if (LogInModel.LoggedInBruger == null)
-                return RedirectToPage("/Login/LogIn");
             Lokaler = await _lokaleService.GetLokaler();
             Bookings = await _bookingService.GetBookings();
             Brugere = await _brugerService.GetBrugere();
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostFilterTimeAsync()
+        {
+            Lokaler = await _lokaleService.GetLokaler();
+            Brugere = await _brugerService.GetBrugere();
+
+            Bookings = await _bookingService.FilterByTime(StartTid, SlutTid);
             return Page();
         }
 

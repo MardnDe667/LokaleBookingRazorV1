@@ -24,6 +24,9 @@ namespace LokaleBookingRazor.Pages.Lokale
         public List<Models.Booking> Bookings { get; set; } = new();
         public List<Models.Bruger> Brugere { get; set; } = new();
 
+        [BindProperty]
+        public string SearchString { get; set; }
+
         public async Task<IActionResult> OnGetAsync()
         {
             Lokaler = await _lokaleService.GetLokaler();
@@ -38,6 +41,15 @@ namespace LokaleBookingRazor.Pages.Lokale
                 }
             }
 
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostSearchAsync()
+        {
+            Bookings = await _bookingService.GetBookings();
+            Brugere = await _brugerService.GetBrugere();
+
+            Lokaler = await _lokaleService.SearchLokaleByName(SearchString);
             return Page();
         }
 
