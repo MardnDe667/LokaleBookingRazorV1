@@ -39,18 +39,24 @@ namespace LokaleBookingRazor.Pages.Login
             foreach (Bruger bruger in brugere)
             {
 
-                if (Brugernavn == bruger.Brugernavn && Password == bruger.Password)
+                if (Brugernavn == bruger.Brugernavn)
                 {
+                    var passwordHasher = new PasswordHasher<string>();
+
+                    if (passwordHasher.VerifyHashedPassword(null, bruger.Password, Password) == PasswordVerificationResult.Success)
+                    {
+
                         LoggedInBruger = bruger;
 
-                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, Brugernavn) };
+                        var claims = new List<Claim> { new Claim(ClaimTypes.Name, Brugernavn) };
 
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                    return RedirectToPage("/Lokale/GetLokale");
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                        return RedirectToPage("/Lokale/GetLokale");
+
+                    }
 
                 }
-
             }
 
             Message = "Invalid attempt";
