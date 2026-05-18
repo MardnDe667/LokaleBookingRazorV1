@@ -17,11 +17,18 @@ namespace LokaleBookingRazor.Pages.Login
 
            
             [BindProperty]
+            [Required]
             public string Brugernavn { get; set; }
 
             [BindProperty, DataType(DataType.Password)]
+            [Required]
             public string Password { get; set; }
             public string Message { get; set; }
+
+            [BindProperty]
+            [Required]
+            public string Rolle { get; set; }
+
 
         //Sikrer at password er korrekt indtastet af brugeren 
         [BindProperty]
@@ -48,15 +55,15 @@ namespace LokaleBookingRazor.Pages.Login
             }
 
             // checker om brugeren allerede findes i DB
-            Bruger existingBruger = await _brugerService.GetBrugere(Brugernavn);
+            //Bruger existingBruger = await _brugerService.GetBrugere(Brugernavn);
 
-            if (existingBruger != null)
+            //if (existingBruger != null)
 
-            {
+            //{
 
-                Message = "Brugernavnet er allerede optaget. Indtast et nyt brugernavn.";
-                return Page();
-            }
+            //    Message = "Brugernavnet er allerede optaget. Indtast et nyt brugernavn.";
+            //    return Page();
+            //}
 
             //Opret bruger 
             Bruger newBruger = new Bruger

@@ -2,7 +2,7 @@
 @model LokaleBookingRazor.Pages.Login.CreateAccountModel
 @{
 }
- <h1>Create User</h1> 
+ <h1>Opret bruger</h1> 
 <div class="container">
     <div>
         @Model.Message
@@ -14,12 +14,26 @@
                 <input asp-for="Brugernavn" />
             </div>
         </div>
+
         <div class="form-group">
             <label asp-for="Password" class="col-form-label"></label>
             <div>
                 <input asp-for="Password" />
             </div>
         </div>
+
+        <div class="form-group">
+            <label asp-for="Rolle"  class="col-form-label"></label>
+
+            <select asp-for="Rolle" class="col-form-control">
+                <option value="">Vælg rolle</option>
+                <option value="Elev">Elev</option>
+                <option value="Lærer">Lærer</option>
+            </select>
+
+            <span asp-validation-for="Rolle" class="text-danger"></span>
+        </div>
+
         <div class="form-group">
             <button type="submit" class="btn btn-outline-dark mt-3">Opret Bruger</button>
         </div>
