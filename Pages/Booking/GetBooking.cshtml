@@ -9,6 +9,15 @@
 <div class="row mb-3">
     <div class="col-12">
         <form method="post" class="d-flex align-items-end gap-3 flex-wrap">
+            <input asp-for="SearchString" placeholder="Enter search term" />
+            <button type="submit" asp-page-handler="Search" class="btn btn-dark btn-sm">Search</button>
+        </form>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <form method="post" class="d-flex align-items-end gap-3 flex-wrap">
             <div class="d-flex flex-column">
                 <label asp-for="StartTid" class="form-label mb-1"></label>
                 <input asp-for="StartTid"
@@ -26,6 +35,19 @@
             <button type="submit" asp-page-handler="FilterTime" class="btn btn-dark btn-sm">Filter</button>
 
             <a class="btn btn-dark btn-sm" asp-page="/Booking/GetBooking">Reset</a>
+        </form>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <form method="post" class="d-flex align-items-center gap-3 flex-wrap">
+            <div class="form-check form-switch m-0">
+                <input asp-for="UserBookings" class="form-check-input" type="checkbox">
+                <label class="form-check-label">Se personlige bookings?</label>
+            </div>
+
+            <button type="submit" asp-page-handler="PersonalBookings" class="btn btn-dark btn-sm">Filter</button>
         </form>
     </div>
 </div>
@@ -59,13 +81,13 @@
                         {
                             <div class="d-flex gap-2 m-1">
                                 <a class="btn btn-danger btn-sm"
-                                   asp-page="/Booking/Delete"
+                                   asp-page="/Booking/DeleteBooking"
                                    asp-route-id="@booking.Id">
                                     Delete
                                 </a>
 
                                 <a class="btn btn-success btn-sm"
-                                   asp-page="/Booking/Edit"
+                                   asp-page="/Booking/EditBooking"
                                    asp-route-id="@booking.Id">
                                     Edit
                                 </a>

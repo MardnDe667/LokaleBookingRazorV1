@@ -77,9 +77,9 @@ namespace LokaleBookingRazor.Pages.Booking
                     break;
 
                 case 2:
-                    if (varighed.TotalHours > 3 || varighed.TotalHours < 0.5)
+                    if (varighed.TotalHours > 2 || varighed.TotalHours < 0.5)
                     {
-                        ModelState.AddModelError("Booking.SlutTid", "Maks 3 timer og mindst en halv time");
+                        ModelState.AddModelError("Booking.SlutTid", "Maks 2 timer og mindst en halv time");
                     }
 
                     else if (tidIndtilBooking.TotalHours < 1)
@@ -115,7 +115,7 @@ namespace LokaleBookingRazor.Pages.Booking
                 case 4:
                     if (varighed.TotalHours > 6 || varighed.TotalHours < 0.5)
                     {
-                        ModelState.AddModelError("Booking.SlutTid", "Maks 1 time og mindst en halv time");
+                        ModelState.AddModelError("Booking.SlutTid", "Maks 6 time og mindst en halv time");
                     }
 
                     else if (tidIndtilBooking.TotalHours < 1)

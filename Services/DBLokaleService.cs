@@ -36,5 +36,20 @@ namespace LokaleBookingRazor.Services
 
             return await _context.Lokaler.Where(l => l.Navn.Contains(input)).ToListAsync();
         }
+
+        public async Task<List<Lokale>> SortLokaleAscending()
+        {
+            return await _context.Lokaler.OrderBy(l => l.Navn).ToListAsync();
+        }
+
+        public async Task<List<Lokale>> SortLokaleDescending()
+        {
+            return await _context.Lokaler.OrderByDescending(l => l.Navn).ToListAsync();
+        }
+
+        public async Task<List<Lokale>> SortLokalerType(int id)
+        {
+            return await _context.Lokaler.Where(l => l.Type == id).ToListAsync();
+        }
     }
 }

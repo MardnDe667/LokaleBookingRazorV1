@@ -26,5 +26,20 @@ namespace LokaleBookingRazor.Services
         {
             return _dbservice.SearchLokaleByName(input);
         }
+
+        public Task<List<Lokale>> SortLokaleAscending()
+        {
+            return _dbservice.SortLokaleAscending();
+        }
+
+        public Task<List<Lokale>> SortLokaleDescending()
+        {
+            return _dbservice.SortLokaleDescending();
+        }
+
+        public Task<List<Lokale>> SortLokalerType(int id)
+        {
+            return _dbservice.SortLokalerType(id);
+        }
     }
 }

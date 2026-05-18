@@ -26,6 +26,11 @@ namespace LokaleBookingRazor.Pages.Booking
         public List<Models.Bruger> Brugere { get; set; } = new();
 
         [BindProperty]
+        public string SearchString { get; set; }
+        [BindProperty]
+        public bool UserBookings { get; set; }
+
+        [BindProperty]
         public DateTime StartTid { get; set; }
         [BindProperty]
         public DateTime SlutTid { get; set; }
@@ -39,12 +44,39 @@ namespace LokaleBookingRazor.Pages.Booking
             return Page();
         }
 
+        public async Task<IActionResult> OnPostSearchAsync()
+        {
+            Lokaler = await _lokaleService.GetLokaler();
+            Brugere = await _brugerService.GetBrugere();
+
+            Bookings = await _bookingService.SearchBookingByName(SearchString);
+            return Page();
+        }
+
         public async Task<IActionResult> OnPostFilterTimeAsync()
         {
             Lokaler = await _lokaleService.GetLokaler();
             Brugere = await _brugerService.GetBrugere();
 
             Bookings = await _bookingService.FilterByTime(StartTid, SlutTid);
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostPersonalBookingsAsync()
+        {
+            Lokaler = await _lokaleService.GetLokaler();
+            Brugere = await _brugerService.GetBrugere();
+
+            if (UserBookings)
+            {
+                Bookings = await _bookingService.PersonalBookings(LogInModel.LoggedInBruger);
+            }
+
+            else
+            {
+                return RedirectToPage();
+            }
+
             return Page();
         }
 

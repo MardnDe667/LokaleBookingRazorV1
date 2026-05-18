@@ -13,6 +13,48 @@
 	</div>
 </div>
 
+<div class="d-flex align-items-center gap-2 mb-3">
+
+	<span>Sorter alfabetisk:</span>
+
+	<div class="col-auto">
+		<form method="post">
+			<button type="submit" asp-page-handler="SortAscending" class="btn btn-dark btn-sm">▲</button>
+		</form>
+	</div>
+	<div class="col-auto">
+		<form method="post">
+			<button type="submit" asp-page-handler="SortDescending" class="btn btn-dark btn-sm">▼</button>
+		</form>
+	</div>
+</div>
+
+<div class="d-flex align-items-center gap-2 mb-3">
+
+	<span>Sorter lokale type:</span>
+
+	<div class="col-auto">
+		<form method="post">
+			<button type="submit" asp-page-handler="SortKlasseLokaler" class="btn btn-dark btn-sm">Klasse Lokaler</button>
+		</form>
+	</div>
+	<div class="col-auto">
+		<form method="post">
+			<button type="submit" asp-page-handler="SortMødeLokaler" class="btn btn-dark btn-sm">Møde Lokaler</button>
+		</form>
+	</div>
+	<div class="col-auto">
+		<form method="post">
+			<button type="submit" asp-page-handler="SortAuditorium" class="btn btn-dark btn-sm">Auditorium</button>
+		</form>
+	</div>
+	<div class="col-auto">
+		<form method="post">
+			<button type="submit" asp-page-handler="SortGruppeLokaler" class="btn btn-dark btn-sm">Gruppe Lokaler</button>
+		</form>
+	</div>
+</div>
+
 <div class="row">
     @if (Model.Lokaler != null)
     {

@@ -23,6 +23,14 @@ namespace LokaleBookingRazor.Services
             return await _context.Bookings.FirstOrDefaultAsync(b => b.Id == id);
         }
 
+        public async Task<List<Booking>> SearchBookingByName(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return await _context.Bookings.ToListAsync();
+
+            return await _context.Bookings.Where(b => b.Navn.Contains(input)).ToListAsync();
+        }
+
         public async Task AddBooking(Booking booking)
         {
             await _context.Bookings.AddAsync(booking);
@@ -47,6 +55,11 @@ namespace LokaleBookingRazor.Services
                 return await _context.Bookings.ToListAsync();
 
             return await _context.Bookings.Where(b => b.StartTid < slutTid && b.SlutTid > startTid).ToListAsync();
+        }
+
+        public async Task<List<Booking>> PersonalBookings(Bruger bruger)
+        {
+            return await _context.Bookings.Where(b => b.BrugerId == bruger.Id).ToListAsync();
         }
 
         public async Task SaveBookings(List<Booking> bookings)
