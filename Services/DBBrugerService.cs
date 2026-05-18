@@ -34,5 +34,11 @@ namespace LokaleBookingRazor.Services
             await _context.Brugere.AddRangeAsync(brugere);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Bruger>> GetBrugereByName(string brugernavn)
+        {
+            return await _context.Brugere.Where(b => b.Brugernavn == brugernavn).ToListAsync();
+        }
+
     }
 }

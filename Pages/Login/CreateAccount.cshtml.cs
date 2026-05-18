@@ -15,27 +15,10 @@ namespace LokaleBookingRazor.Pages.Login
         {
             private BrugerService _brugerService;
 
-           
-            [BindProperty]
-            [Required]
-            public string Brugernavn { get; set; }
 
-            [BindProperty, DataType(DataType.Password)]
-            [Required]
-            public string Password { get; set; }
-            public string Message { get; set; }
-
-            [BindProperty]
-            [Required]
-            public string Rolle { get; set; }
-
-
-        //Sikrer at password er korrekt indtastet af brugeren 
         [BindProperty]
-        [Required]
-        [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Passwords do not match! ")]
-        public string ConfirmPassword { get; set; }
+        public Models.Bruger? Bruger { get; set; } // Den nye booking
+        public string Message { get; set; }
 
             public CreateAccountModel(BrugerService brugerService)
             {
@@ -48,38 +31,35 @@ namespace LokaleBookingRazor.Pages.Login
 
         public async Task<IActionResult> OnPost()
         {
-            //if (!ModelState.IsValid)
+            var brugere = await _brugerService.GetBrugereByName(Bruger.Brugernavn);
 
-            //{
-            //    return Page();
-            //}
-
-            // checker om brugeren allerede findes i DB
-            //Bruger existingBruger = await _brugerService.GetBrugere(Brugernavn);
-
-            //if (existingBruger != null)
-
-            //{
-
-            //    Message = "Brugernavnet er allerede optaget. Indtast et nyt brugernavn.";
-            //    return Page();
-            //}
+            if (brugere.Count > 1)
+            {
+                ModelState.AddModelError("", "Der findes allerede en bruger med dette navn.");
+                return Page();
+            }
 
             //Opret bruger 
             Bruger newBruger = new Bruger
 
             {
-                Brugernavn = Brugernavn
+                Brugernavn = Bruger.Brugernavn,
+                Rolle = Bruger.Rolle
             };
 
             var passwordHasher = new PasswordHasher<Bruger>();
-            newBruger.Password = passwordHasher.HashPassword(newBruger, Password);
+            newBruger.Password = passwordHasher.HashPassword(newBruger, Bruger.Password);
+
+            if (!ModelState.IsValid)
+
+            {
+                return Page();
+            }
 
             //gem i DB
             await _brugerService.AddBruger(newBruger);
-
+            //opdater rolle, og opret i DB
             Message = "Din brugerprofil er nu oprettet!";
-
             return RedirectToPage("/Login/login");
         }
     }

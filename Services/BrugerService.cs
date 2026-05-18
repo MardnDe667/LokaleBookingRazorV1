@@ -22,15 +22,14 @@ namespace LokaleBookingRazor.Services
             return _dbservice.GetBruger(id);
         }
 
-
-        // vil gerne have en get bruger på brugernavn som string
-        //public Task<Bruger?> GetBrugere(string Brugernavn)
-        //{
-        //    return _dbservice.GetBrugere(Brugernavn);
-        //}
         public Task AddBruger(Bruger bruger)
         {
             return _dbservice.AddBruger(bruger);
+        }
+
+        public Task<List<Bruger>> GetBrugereByName(string brugernavn)
+        {
+            return _dbservice.GetBrugereByName(brugernavn);
         }
     }
 }
