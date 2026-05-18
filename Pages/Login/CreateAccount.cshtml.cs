@@ -48,11 +48,11 @@ namespace LokaleBookingRazor.Pages.Login
 
         public async Task<IActionResult> OnPost()
         {
-            if (!ModelState.IsValid)
+            //if (!ModelState.IsValid)
 
-            {
-                return Page();
-            }
+            //{
+            //    return Page();
+            //}
 
             // checker om brugeren allerede findes i DB
             //Bruger existingBruger = await _brugerService.GetBrugere(Brugernavn);

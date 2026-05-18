@@ -23,9 +23,9 @@ namespace LokaleBookingRazor.Services
             return await _context.Brugere.FirstOrDefaultAsync(b => b.Id == id);
         }
 
-        public async Task AddBruger(Bruger bruger)
+        public async Task AddBruger(Bruger brugere)
         {
-            await _context.Brugere.AddAsync(bruger);
+            await _context.Brugere.AddAsync(brugere);
             await _context.SaveChangesAsync();
         }
 
