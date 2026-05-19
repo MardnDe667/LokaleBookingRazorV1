@@ -10,13 +10,6 @@ namespace LokaleBookingRazor.Pages.Login
 {
     public class LogOutModel : PageModel
     {
-        private BrugerService _brugerService;
-
-        public LogOutModel(BrugerService brugerService)
-        {
-            _brugerService = brugerService;
-        }
-
         public IActionResult OnGet()
         {
             if (LogInModel.LoggedInBruger == null)

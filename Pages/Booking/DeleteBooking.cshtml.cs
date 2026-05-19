@@ -7,9 +7,9 @@ namespace LokaleBookingRazor.Pages.Booking
 {
     public class DeleteBookingModel : PageModel
     {
-        private BookingService _bookingService;
+        private IBookingService _bookingService;
 
-        public DeleteBookingModel(BookingService bookingService)
+        public DeleteBookingModel(IBookingService bookingService)
         {
             _bookingService = bookingService;
         }

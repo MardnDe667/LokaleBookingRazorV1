@@ -3,7 +3,7 @@ using LokaleBookingRazor.Pages.Login;
 
 namespace LokaleBookingRazor.Services
 {
-    public class BookingService
+    public class BookingService : IBookingService
     {
         private DBBookingService _dbservice { get; set; }
 

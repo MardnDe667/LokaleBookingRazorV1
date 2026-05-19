@@ -12,16 +12,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // Singleton, transient for lokale class
-builder.Services.AddScoped<LokaleService>();
+builder.Services.AddScoped<ILokaleService, LokaleService>();
 builder.Services.AddTransient<DBLokaleService>();
 
 // Singleton, transient og dbContext for booking class
-builder.Services.AddScoped<BookingService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddTransient<DBBookingService>();
 builder.Services.AddDbContext<BookingDbContext>();
 
 // Singleton, transient for bruger class
-builder.Services.AddScoped<BrugerService>();
+builder.Services.AddScoped<IBrugerService, BrugerService>();
 builder.Services.AddTransient<DBBrugerService>();
 
 // cookie login 

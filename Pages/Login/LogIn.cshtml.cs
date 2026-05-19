@@ -12,18 +12,16 @@ namespace LokaleBookingRazor.Pages.Login
 {
     public class LogInModel : PageModel
     {
-        private BrugerService _brugerService;
+        private IBrugerService _brugerService;
 
-        public static Bruger LoggedInBruger { get; set; } = null;
+        public static Bruger? LoggedInBruger { get; set; } = null;
+
 
         [BindProperty]
-        public string Brugernavn { get; set; }
-
-        [BindProperty, DataType(DataType.Password)]
-        public string Password { get; set; }
+        public Models.Bruger? Bruger { get; set; }
         public string Message { get; set; }
 
-        public LogInModel(BrugerService brugerService)
+        public LogInModel(IBrugerService brugerService)
         {
             _brugerService = brugerService; 
         }
@@ -39,16 +37,16 @@ namespace LokaleBookingRazor.Pages.Login
             foreach (Bruger bruger in brugere)
             {
 
-                if (Brugernavn == bruger.Brugernavn)
+                if (Bruger.Brugernavn == bruger.Brugernavn)
                 {
                     var passwordHasher = new PasswordHasher<string>();
 
-                    if (passwordHasher.VerifyHashedPassword(null, bruger.Password, Password) == PasswordVerificationResult.Success)
+                    if (passwordHasher.VerifyHashedPassword(null, bruger.Password, Bruger.Password) == PasswordVerificationResult.Success)
                     {
 
                         LoggedInBruger = bruger;
 
-                        var claims = new List<Claim> { new Claim(ClaimTypes.Name, Brugernavn) };
+                        var claims = new List<Claim> { new Claim(ClaimTypes.Name, Bruger.Brugernavn) };
 
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));

@@ -9,11 +9,11 @@ namespace LokaleBookingRazor.Pages.Lokale
 {
     public class GetLokaleModel : PageModel
     {
-        private BookingService _bookingService;
-        private LokaleService _lokaleService;
-        private BrugerService _brugerService;
+        private IBookingService _bookingService;
+        private ILokaleService _lokaleService;
+        private IBrugerService _brugerService;
 
-        public GetLokaleModel(LokaleService lokaleService, BookingService bookingService, BrugerService brugerService)
+        public GetLokaleModel(ILokaleService lokaleService, IBookingService bookingService, IBrugerService brugerService)
         {
             _lokaleService = lokaleService;
             _bookingService = bookingService;

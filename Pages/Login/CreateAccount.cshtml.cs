@@ -13,14 +13,14 @@ namespace LokaleBookingRazor.Pages.Login
 {
     public class CreateAccountModel : PageModel
         {
-            private BrugerService _brugerService;
+            private IBrugerService _brugerService;
 
 
         [BindProperty]
         public Models.Bruger? Bruger { get; set; } // Den nye booking
         public string Message { get; set; }
 
-            public CreateAccountModel(BrugerService brugerService)
+            public CreateAccountModel(IBrugerService brugerService)
             {
                 _brugerService = brugerService;
             }

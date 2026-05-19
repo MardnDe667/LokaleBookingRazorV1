@@ -3,7 +3,7 @@ using LokaleBookingRazor.Models;
 
 namespace LokaleBookingRazor.Services
 {
-    public class BrugerService
+    public class BrugerService : IBrugerService
     {
         private DBBrugerService _dbservice { get; set; }
 

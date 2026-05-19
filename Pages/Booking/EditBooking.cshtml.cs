@@ -9,10 +9,10 @@ namespace LokaleBookingRazor.Pages.Booking
     public class EditBookingModel : PageModel
     {
 
-        private LokaleService _lokaleService;
-        private BookingService _bookingService;
+        private ILokaleService _lokaleService;
+        private IBookingService _bookingService;
 
-        public EditBookingModel(LokaleService lokaleService, BookingService bookingService)
+        public EditBookingModel(ILokaleService lokaleService, IBookingService bookingService)
         {
             _lokaleService = lokaleService;
             _bookingService = bookingService;
