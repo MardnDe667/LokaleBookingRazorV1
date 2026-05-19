@@ -12,16 +12,18 @@ namespace LokaleBookingRazor.Pages.Login
 {
     public class LogInModel : PageModel
     {
-        private BrugerService _brugerService;
+        private readonly BrugerService _brugerService;
 
         public static Bruger LoggedInBruger { get; set; } = null;
 
         [BindProperty]
-        public string Brugernavn { get; set; }
+        [Required]
+        public string Brugernavn { get; set; } = string.Empty;
 
         [BindProperty, DataType(DataType.Password)]
-        public string Password { get; set; }
-        public string Message { get; set; }
+        [Required]
+        public string Password { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty; 
 
         public LogInModel(BrugerService brugerService)
         {

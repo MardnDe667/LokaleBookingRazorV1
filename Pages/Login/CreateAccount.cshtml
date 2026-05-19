@@ -15,13 +15,16 @@
             <label asp-for="Bruger.Brugernavn" class="col-form-label "></label>
             <div>
                 <input asp-for="Bruger.Brugernavn" />
+
+                <span asp-validation-for="Bruger.Password" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group">
             <label asp-for="Bruger.Password" class="col-form-label"></label>
             <div>
-                <input asp-for="Bruger.Password" />
+                <input asp-for="Bruger.Password" type="password" />
+                <span asp-validation-for="Bruger.Password" class="text-danger"></span>
             </div>
         </div>
 

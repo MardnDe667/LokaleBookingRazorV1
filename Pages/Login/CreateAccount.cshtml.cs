@@ -13,12 +13,12 @@ namespace LokaleBookingRazor.Pages.Login
 {
     public class CreateAccountModel : PageModel
         {
-            private BrugerService _brugerService;
+          readonly  private BrugerService _brugerService;
 
 
         [BindProperty]
         public Models.Bruger? Bruger { get; set; } // Den nye booking
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty; 
 
             public CreateAccountModel(BrugerService brugerService)
             {
@@ -39,6 +39,11 @@ namespace LokaleBookingRazor.Pages.Login
                 return Page();
             }
 
+            if (!ModelState.IsValid)
+
+            {
+                return Page();
+            }
             //Opret bruger 
             Bruger newBruger = new Bruger
 
@@ -50,11 +55,6 @@ namespace LokaleBookingRazor.Pages.Login
             var passwordHasher = new PasswordHasher<Bruger>();
             newBruger.Password = passwordHasher.HashPassword(newBruger, Bruger.Password);
 
-            if (!ModelState.IsValid)
-
-            {
-                return Page();
-            }
 
             //gem i DB
             await _brugerService.AddBruger(newBruger);
