@@ -6,29 +6,20 @@ namespace LokaleBookingRazor.Services
     public class LokaleService
     {
         private DBLokaleService _dbservice { get; set; }
-        private List<Lokale> _lokaler;
 
         public LokaleService(DBLokaleService dbservice)
         {
             _dbservice = dbservice;
-            
-            _lokaler = _dbservice.GetLokaler().Result;
         }
 
-        public List<Lokale> GetLokaler()
+        public Task<List<Lokale>> GetLokaler()
         {
-            return _lokaler;
+            return _dbservice.GetLokaler();
         }
 
-        public Lokale GetLokale(int id)
+        public Task<Lokale?> GetLokale(int id)
         {
-            foreach (Lokale lokale in _lokaler)
-            {
-                if (lokale.Id == id)
-                    return lokale;
-            }
-
-            return null;
+            return _dbservice.GetLokale(id);
         }
     }
 }

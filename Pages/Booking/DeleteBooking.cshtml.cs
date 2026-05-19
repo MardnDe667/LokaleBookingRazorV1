@@ -5,26 +5,26 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LokaleBookingRazor.Pages.Booking
 {
-    public class DeleteModel : PageModel
+    public class DeleteBookingModel : PageModel
     {
         private BookingService _bookingService;
 
-        public DeleteModel(BookingService bookingService)
+        public DeleteBookingModel(BookingService bookingService)
         {
             _bookingService = bookingService;
         }
 
         [BindProperty]
-        public Models.Booking Booking { get; set; }
+        public Models.Booking? Booking { get; set; }
 
-
-        public IActionResult OnGet(int id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            Booking = _bookingService.GetBooking(id);
-            if (Booking == null)
-                return RedirectToPage("/Error"); //NotFound er ikke defineret endnu
+            Booking = await _bookingService.GetBooking(id);
 
-            if (!_bookingService.CanDelete(Booking))
+            if (Booking == null)
+                return RedirectToPage("/Error");
+
+            if (!_bookingService.CanEditOrDelete(Booking))
             {
                 return RedirectToPage("/Lokale/GetLokale");
             }

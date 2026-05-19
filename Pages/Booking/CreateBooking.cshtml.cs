@@ -7,23 +7,23 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LokaleBookingRazor.Pages.Booking
 {
-    public class CreateModel : PageModel
+    public class CreateBookingModel : PageModel
     {
         private LokaleService _lokaleService;
         private BookingService _bookingService;
 
-        public CreateModel(LokaleService lokaleService, BookingService bookingService)
+        public CreateBookingModel(LokaleService lokaleService, BookingService bookingService)
         {
             _lokaleService = lokaleService;
             _bookingService = bookingService;
         }
 
         [BindProperty]
-        public Models.Booking Booking { get; set; } // Den nye booking
+        public Models.Booking? Booking { get; set; } // Den nye booking
 
-        public IActionResult OnGet(int id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            var lokale = _lokaleService.GetLokale(id);
+            var lokale = await _lokaleService.GetLokale(id);
             if (lokale == null)
                 return RedirectToPage("/Error");
 
@@ -42,7 +42,7 @@ namespace LokaleBookingRazor.Pages.Booking
                 return RedirectToPage("/Login/LogIn");
             }
 
-            var lokale = _lokaleService.GetLokale(Booking.LokaleId);
+            var lokale = await _lokaleService.GetLokale(Booking.LokaleId);
 
             if (lokale == null)
             {
@@ -53,7 +53,7 @@ namespace LokaleBookingRazor.Pages.Booking
             var varighed = Booking.SlutTid - Booking.StartTid; // Varighed af tid i timer binded i alt
             var tidIndtilBooking = Booking.StartTid - DateTime.Now; // Varighed af tid i dage binded før i dag
 
-            var bookings = _bookingService.GetBookings(); // henter bookings
+            var bookings = await _bookingService.GetBookings(); // henter bookings
             var overlap = bookings.Where(booking => booking.LokaleId == Booking.LokaleId && booking.StartTid < Booking.SlutTid && booking.SlutTid > Booking.StartTid).ToList(); // Liste over bookings der matcher det samme tidspunkt som binded.
 
             switch (lokale.Type) // Tjek Lokale type og find restrictions
@@ -93,6 +93,19 @@ namespace LokaleBookingRazor.Pages.Booking
                     else if (tidIndtilBooking.TotalDays < 2)
                     {
                         ModelState.AddModelError("Booking.SlutTid", "Skal bookes mindst 2 dage i forvejen");
+                    }
+
+                    else if (overlap.Count > 1)
+                    {
+                        ModelState.AddModelError("Booking.SlutTid", "Dette lokale er allerede booket af 2 personer, på dette tidspunkt");
+                    }
+
+                    break;
+
+                case 4:
+                    if (varighed.TotalHours > 6 || varighed.TotalHours < 0.5)
+                    {
+                        ModelState.AddModelError("Booking.SlutTid", "Maks 1 time og mindst en halv time");
                     }
 
                     else if (overlap.Count > 1)

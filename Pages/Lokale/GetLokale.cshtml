@@ -38,7 +38,7 @@
 
 						<div class="action-buttons mb-3">
 							<a class="btn btn-primary btn-sm"
-							   asp-page="/Booking/Create"
+							   asp-page="/Booking/CreateBooking"
 							   asp-route-id="@lokale.Id">
 								<strong class="fa-solid fa-pen">Create Booking</strong>
 							</a>
@@ -66,13 +66,19 @@
 												</ul>
 											</div>
 
-											@if (Model.CanDelete(booking))
+											@if (Model.CanEditOrDelete(booking))
 											{
-												<div class="action-buttons m-1">
+												<div class="d-flex gap-2 m-1">
 													<a class="btn btn-danger btn-sm"
-													   asp-page="/Booking/Delete"
+													   asp-page="/Booking/DeleteBooking"
 													   asp-route-id="@booking.Id">
-														<strong class="fa-solid fa-pen">Delete</strong>
+														Delete
+													</a>
+
+													<a class="btn btn-success btn-sm"
+													   asp-page="/Booking/EditBooking"
+													   asp-route-id="@booking.Id">
+														Edit
 													</a>
 												</div>
 											}

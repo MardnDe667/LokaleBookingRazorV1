@@ -6,29 +6,30 @@ namespace LokaleBookingRazor.Services
     public class BrugerService
     {
         private DBBrugerService _dbservice { get; set; }
-        private List<Bruger> _brugere;
 
         public BrugerService(DBBrugerService dbservice)
         {
-            
             _dbservice = dbservice;
-
-            _brugere = _dbservice.GetBrugere().Result;
-        }
-        public List<Bruger> GetBrugere()
-        {
-            return _brugere;
         }
 
-        public Bruger? GetBruger(int id)
+        public Task<List<Bruger>> GetBrugere()
         {
-            foreach (Bruger bruger in _brugere)
-            {
-                if (bruger.Id == id)
-                    return bruger;
-            }
+            return _dbservice.GetBrugere();
+        }
 
-            return null;
+        public Task<Bruger?> GetBruger(int id)
+        {
+            return _dbservice.GetBruger(id);
+        }
+
+        public Task AddBruger(Bruger bruger)
+        {
+            return _dbservice.AddBruger(bruger);
+        }
+
+        public Task<List<Bruger>> GetBrugereByName(string brugernavn)
+        {
+            return _dbservice.GetBrugereByName(brugernavn);
         }
     }
 }

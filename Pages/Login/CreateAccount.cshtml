@@ -1,0 +1,44 @@
+﻿@page
+@model LokaleBookingRazor.Pages.Login.CreateAccountModel
+@{
+}
+ <h1>Opret bruger</h1> 
+<div class="container">
+    <div>
+        @Model.Message
+    </div>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Bruger.Brugernavn" class="col-form-label "></label>
+            <div>
+                <input asp-for="Bruger.Brugernavn" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Bruger.Password" class="col-form-label"></label>
+            <div>
+                <input asp-for="Bruger.Password" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Bruger.Rolle" class="col-form-label"></label>
+
+            <select asp-for="Bruger.Rolle" class="col-form-control">
+                <option value="">Vælg rolle</option>
+                <option value="Elev">Elev</option>
+                <option value="Lærer">Lærer</option>
+            </select>
+
+            <span asp-validation-for="Bruger.Rolle" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-outline-dark mt-3">Opret Bruger</button>
+        </div>
+    </form>
+</div>

@@ -6,26 +6,39 @@ namespace LokaleBookingRazor.Services
 {
     public class DBBrugerService
     {
+        private readonly BookingDbContext _context;
+
+        public DBBrugerService(BookingDbContext context)
+        {
+            _context = context;
+        }
+
         public async Task<List<Bruger>> GetBrugere()
         {
-            using (var context = new BookingDbContext())
-            {
-                return await context.Brugere.ToListAsync();
-            }
+            return await _context.Brugere.ToListAsync();
+        }
+
+        public async Task<Bruger?> GetBruger(int id)
+        {
+            return await _context.Brugere.FirstOrDefaultAsync(b => b.Id == id);
+        }
+
+        public async Task AddBruger(Bruger brugere)
+        {
+            await _context.Brugere.AddAsync(brugere);
+            await _context.SaveChangesAsync();
         }
 
         public async Task SaveBrugere(List<Bruger> brugere)
         {
-            using (var context = new BookingDbContext())
-            {
-                foreach (Bruger bruger in brugere)
-                {
-                    context.Brugere.Add(bruger);
-                    context.SaveChanges();
-                }
-
-                context.SaveChanges();
-            }
+            await _context.Brugere.AddRangeAsync(brugere);
+            await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Bruger>> GetBrugereByName(string brugernavn)
+        {
+            return await _context.Brugere.Where(b => b.Brugernavn == brugernavn).ToListAsync();
+        }
+
     }
 }

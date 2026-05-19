@@ -2,6 +2,7 @@ using LokaleBookingRazor.Models;
 using LokaleBookingRazor.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -34,23 +35,28 @@ namespace LokaleBookingRazor.Pages.Login
         public async Task<IActionResult> OnPost()
         {
 
-            List<Bruger> brugere = _brugerService.GetBrugere();
+            List<Bruger> brugere = await _brugerService.GetBrugere();
             foreach (Bruger bruger in brugere)
             {
 
-                if (Brugernavn == bruger.Brugernavn && Password == bruger.Password)
+                if (Brugernavn == bruger.Brugernavn)
                 {
+                    var passwordHasher = new PasswordHasher<string>();
 
-                    LoggedInBruger = bruger;
+                    if (passwordHasher.VerifyHashedPassword(null, bruger.Password, Password) == PasswordVerificationResult.Success)
+                    {
 
-                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, Brugernavn) };
+                        LoggedInBruger = bruger;
 
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                    return RedirectToPage("/Lokale/GetLokale");
+                        var claims = new List<Claim> { new Claim(ClaimTypes.Name, Brugernavn) };
+
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                        return RedirectToPage("/Lokale/GetLokale");
+
+                    }
 
                 }
-
             }
 
             Message = "Invalid attempt";

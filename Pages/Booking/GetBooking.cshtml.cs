@@ -25,14 +25,19 @@ namespace LokaleBookingRazor.Pages.Booking
         public List<Models.Booking> Bookings { get; set; } = new();
         public List<Models.Bruger> Brugere { get; set; } = new();
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
             if (LogInModel.LoggedInBruger == null)
                 return RedirectToPage("/Login/LogIn");
-            Lokaler = _lokaleService.GetLokaler();
-            Bookings = _bookingService.GetBookings();
-            Brugere = _brugerService.GetBrugere();
+            Lokaler = await _lokaleService.GetLokaler();
+            Bookings = await _bookingService.GetBookings();
+            Brugere = await _brugerService.GetBrugere();
             return Page();
+        }
+
+        public bool CanEditOrDelete(Models.Booking booking)
+        {
+            return _bookingService.CanEditOrDelete(booking);
         }
     }
 }
