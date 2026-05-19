@@ -15,6 +15,7 @@
             <label asp-for="Bruger.Brugernavn" class="col-form-label "></label>
             <div>
                 <input asp-for="Bruger.Brugernavn" />
+                <span asp-validation-for="Bruger.Brugernavn" class="text-danger"></span>
             </div>
         </div>
 
@@ -22,6 +23,7 @@
             <label asp-for="Bruger.Password" class="col-form-label"></label>
             <div>
                 <input asp-for="Bruger.Password" />
+                <span asp-validation-for="Bruger.Password" class="text-danger"></span>
             </div>
         </div>
 

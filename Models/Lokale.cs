@@ -22,8 +22,14 @@ namespace LokaleBookingRazor.Models
 
         public int Type { get; set; }
 
+        public char BygningTal { get; set; }
 
-        public Lokale (int id, string navn, string beskrivelse, bool smartBoard, float størrelse, int type)
+        public int SalNr { get; set; }
+
+        public int LokaleNr { get; set; }
+
+
+        public Lokale (int id, string navn, string beskrivelse, bool smartBoard, float størrelse, int type, char bygningTal, int salNr, int lokaleNr)
         {
             Id = id;
             Navn = navn;
@@ -31,6 +37,9 @@ namespace LokaleBookingRazor.Models
             SmartBoard = smartBoard;
             Størrelse = størrelse;
             Type = type;
+            BygningTal = bygningTal;
+            SalNr = salNr;
+            LokaleNr = lokaleNr;
         }
         public Lokale()
         {
@@ -40,6 +49,9 @@ namespace LokaleBookingRazor.Models
             SmartBoard = false;
             Størrelse = 0;
             Type = 0;
+            BygningTal = '\0';
+            SalNr = 0;
+            LokaleNr = 0;
         }
     }
 

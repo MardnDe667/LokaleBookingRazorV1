@@ -39,6 +39,11 @@ namespace LokaleBookingRazor.Pages.Login
                 return Page();
             }
 
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             //Opret bruger 
             Bruger newBruger = new Bruger
 
@@ -49,12 +54,6 @@ namespace LokaleBookingRazor.Pages.Login
 
             var passwordHasher = new PasswordHasher<Bruger>();
             newBruger.Password = passwordHasher.HashPassword(newBruger, Bruger.Password);
-
-            if (!ModelState.IsValid)
-
-            {
-                return Page();
-            }
 
             //gem i DB
             await _brugerService.AddBruger(newBruger);
