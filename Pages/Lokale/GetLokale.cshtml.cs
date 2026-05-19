@@ -26,6 +26,8 @@ namespace LokaleBookingRazor.Pages.Lokale
 
         [BindProperty]
         public string SearchString { get; set; }
+        [BindProperty]
+        public char BygningInput { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -104,6 +106,15 @@ namespace LokaleBookingRazor.Pages.Lokale
             Brugere = await _brugerService.GetBrugere();
 
             Lokaler = await _lokaleService.SortLokalerType(4);
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostSortBygningTalAsync()
+        {
+            Bookings = await _bookingService.GetBookings();
+            Brugere = await _brugerService.GetBrugere();
+
+            Lokaler = await _lokaleService.SortBygningTal(BygningInput);
             return Page();
         }
 

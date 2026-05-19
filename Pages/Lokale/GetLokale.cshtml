@@ -55,6 +55,22 @@
 	</div>
 </div>
 
+<div class="row mb-3">
+	<div class="col-12">
+		<form method="post" class="d-flex align-items-center gap-3 flex-wrap">
+			<label class="form-check-label">Sorter bygning:</label>
+			<select asp-for="BygningInput" class="col-form-control">
+				<option value="">Vælg Bygning</option>
+				<option value="A">Bygning A</option>
+				<option value="B">Bygning B</option>
+				<option value="C">Bygning C</option>
+			</select>
+
+			<button type="submit" asp-page-handler="SortBygningTal" class="btn btn-dark btn-sm">Filter</button>
+		</form>
+	</div>
+</div>
+
 <div class="row">
     @if (Model.Lokaler != null)
     {
@@ -65,7 +81,7 @@
                     <img class="card-img-top" src="~/Images/Logo v2.png" alt="Card image">
 
                     <div class="card-body d-flex flex-column">
-						<h4 class="card-title">@lokale.Navn</h4>
+						<h4 class="card-title">@lokale.Navn @lokale.BygningTal@lokale.SalNr.@lokale.LokaleNr</h4>
 
 						<p class="card-text">@lokale.Beskrivelse</p>
 

@@ -51,5 +51,13 @@ namespace LokaleBookingRazor.Services
         {
             return await _context.Lokaler.Where(l => l.Type == id).ToListAsync();
         }
+
+        public async Task<List<Lokale>> SortBygningTal(char? bygningTal)
+        {
+            if (bygningTal == '\0')
+                return await _context.Lokaler.ToListAsync();
+
+            return await _context.Lokaler.Where(l => l.BygningTal == bygningTal).ToListAsync();
+        }
     }
 }

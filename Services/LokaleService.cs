@@ -41,5 +41,10 @@ namespace LokaleBookingRazor.Services
         {
             return _dbservice.SortLokalerType(id);
         }
+
+        public Task<List<Lokale>> SortBygningTal(char? bygningTal)
+        {
+            return _dbservice.SortBygningTal(bygningTal);
+        }
     }
 }
