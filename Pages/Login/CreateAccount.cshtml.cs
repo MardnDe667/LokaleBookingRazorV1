@@ -31,6 +31,13 @@ namespace LokaleBookingRazor.Pages.Login
 
         public async Task<IActionResult> OnPost()
         {
+
+            if (Bruger == null)
+
+            {
+                ModelState.AddModelError("", "Ugyldigt input");
+                return Page(); 
+            }
             var brugere = await _brugerService.GetBrugereByName(Bruger.Brugernavn);
 
             if (brugere.Count > 1)
@@ -45,7 +52,7 @@ namespace LokaleBookingRazor.Pages.Login
                 return Page();
             }
             //Opret bruger 
-            Bruger newBruger = new Bruger
+            var newBruger = new Bruger
 
             {
                 Brugernavn = Bruger.Brugernavn,

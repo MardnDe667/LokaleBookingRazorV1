@@ -14,7 +14,7 @@ namespace LokaleBookingRazor.Pages.Login
     {
         private readonly BrugerService _brugerService;
 
-        public static Bruger LoggedInBruger { get; set; } = null;
+        public static Bruger? LoggedInBruger { get; set; } = null;
 
         [BindProperty]
         [Required]
@@ -45,7 +45,7 @@ namespace LokaleBookingRazor.Pages.Login
                 {
                     var passwordHasher = new PasswordHasher<string>();
 
-                    if (passwordHasher.VerifyHashedPassword(null, bruger.Password, Password) == PasswordVerificationResult.Success)
+                    if (passwordHasher.VerifyHashedPassword(string.Empty, bruger.Password, Password) == PasswordVerificationResult.Success)
                     {
 
                         LoggedInBruger = bruger;
