@@ -11,10 +11,15 @@ namespace LokaleBookingRazor.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Lokale ID")]
         public int Id { get; set; }
+
         public string Navn { get; set; }
+
         public string Beskrivelse { get; set; }
+
         public bool SmartBoard { get; set; }
+
         public float Størrelse { get; set; }
+
         public int Type { get; set; }
 
 

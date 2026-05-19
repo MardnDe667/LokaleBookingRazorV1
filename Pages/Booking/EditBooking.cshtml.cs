@@ -62,12 +62,22 @@ namespace LokaleBookingRazor.Pages.Booking
                         ModelState.AddModelError("Booking.SlutTid", "Maks 6 timer og mindst en halv time");
                     }
 
+                    else if (tidIndtilBooking.TotalHours < 1)
+                    {
+                        ModelState.AddModelError("Booking.SlutTid", "Skal bookes mindst 1 time i forvejen");
+                    }
+
                     break;
 
                 case 2:
                     if (varighed.TotalHours > 3 || varighed.TotalHours < 0.5)
                     {
                         ModelState.AddModelError("Booking.SlutTid", "Maks 3 timer og mindst en halv time");
+                    }
+
+                    else if (tidIndtilBooking.TotalHours < 1)
+                    {
+                        ModelState.AddModelError("Booking.SlutTid", "Skal bookes mindst 1 time i forvejen");
                     }
 
                     break;
@@ -89,6 +99,11 @@ namespace LokaleBookingRazor.Pages.Booking
                     if (varighed.TotalHours > 6 || varighed.TotalHours < 0.5)
                     {
                         ModelState.AddModelError("Booking.SlutTid", "Maks 1 time og mindst en halv time");
+                    }
+
+                    else if (tidIndtilBooking.TotalHours < 1)
+                    {
+                        ModelState.AddModelError("Booking.SlutTid", "Skal bookes mindst 1 time i forvejen");
                     }
 
                     break;

@@ -37,6 +37,21 @@ namespace LokaleBookingRazor.Services
             return _dbservice.DeleteBooking(booking);
         }
 
+        public Task<List<Booking>> SearchBookingByName(string input)
+        {
+            return _dbservice.SearchBookingByName(input);
+        }
+
+        public Task<List<Booking>> FilterByTime(DateTime? startTid, DateTime? slutTid)
+        {
+            return _dbservice.FilterByTime(startTid, slutTid);
+        }
+
+        public Task<List<Booking>> PersonalBookings(Bruger bruger)
+        {
+            return _dbservice.PersonalBookings(bruger);
+        }
+
         public bool CanEditOrDelete(Booking booking)
         {
             if (LogInModel.LoggedInBruger == null)
@@ -47,7 +62,7 @@ namespace LokaleBookingRazor.Services
             if (LogInModel.LoggedInBruger.Rolle == "Underviser" && tidIndtilBooking.TotalDays >= 3)
                 return true;
 
-            if (tidIndtilBooking.TotalHours < 1)
+            if (DateTime.Now > booking.StartTid)
                 return false;
 
             return booking.BrugerId == LogInModel.LoggedInBruger.Id;

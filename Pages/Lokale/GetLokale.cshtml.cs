@@ -24,6 +24,9 @@ namespace LokaleBookingRazor.Pages.Lokale
         public List<Models.Booking> Bookings { get; set; } = new();
         public List<Models.Bruger> Brugere { get; set; } = new();
 
+        [BindProperty]
+        public string SearchString { get; set; }
+
         public async Task<IActionResult> OnGetAsync()
         {
             Lokaler = await _lokaleService.GetLokaler();
@@ -38,6 +41,69 @@ namespace LokaleBookingRazor.Pages.Lokale
                 }
             }
 
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostSearchAsync()
+        {
+            Bookings = await _bookingService.GetBookings();
+            Brugere = await _brugerService.GetBrugere();
+
+            Lokaler = await _lokaleService.SearchLokaleByName(SearchString);
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostSortAscendingAsync()
+        {
+            Bookings = await _bookingService.GetBookings();
+            Brugere = await _brugerService.GetBrugere();
+
+            Lokaler = await _lokaleService.SortLokaleAscending();
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostSortDescendingAsync()
+        {
+            Bookings = await _bookingService.GetBookings();
+            Brugere = await _brugerService.GetBrugere();
+
+            Lokaler = await _lokaleService.SortLokaleDescending();
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostSortKlasseLokalerAsync()
+        {
+            Bookings = await _bookingService.GetBookings();
+            Brugere = await _brugerService.GetBrugere();
+
+            Lokaler = await _lokaleService.SortLokalerType(1);
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostSortMødeLokalerAsync()
+        {
+            Bookings = await _bookingService.GetBookings();
+            Brugere = await _brugerService.GetBrugere();
+
+            Lokaler = await _lokaleService.SortLokalerType(2);
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostSortAuditoriumAsync()
+        {
+            Bookings = await _bookingService.GetBookings();
+            Brugere = await _brugerService.GetBrugere();
+
+            Lokaler = await _lokaleService.SortLokalerType(3);
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostSortGruppeLokalerAsync()
+        {
+            Bookings = await _bookingService.GetBookings();
+            Brugere = await _brugerService.GetBrugere();
+
+            Lokaler = await _lokaleService.SortLokalerType(4);
             return Page();
         }
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +37,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 });
 builder.Services.AddMvc().AddRazorPagesOptions(options =>
 {
-    options.Conventions.AuthorizeFolder("/Lokale");});
+    options.Conventions.AuthorizeFolder("/Lokale");
+    options.Conventions.AuthorizeFolder("/Booking");
+});
 
 var app = builder.Build();
 
